@@ -1,0 +1,194 @@
+* { box-sizing: border-box; }
+
+.game-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #568b45;
+  color: #fff;
+}
+
+.game-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.hero-hud, .quest-card, .mini-map, .side-menu button, .chat-panel, .hotbar button {
+  background: rgba(15, 22, 33, .94);
+  border: 2px solid #59677d;
+  box-shadow: 0 5px 16px #0008;
+}
+
+.hero-hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 360px;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.hero-avatar {
+  width: 82px;
+  height: 94px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: #29364a;
+  border: 2px solid #8793a6;
+  border-radius: 8px;
+}
+
+.hero-stats { flex: 1; min-width: 0; }
+.hero-title { font-weight: 800; margin-bottom: 9px; }
+.hero-title span { color: #e6c27c; font-size: 12px; margin-left: 6px; }
+.stat-line { display: flex; align-items: center; gap: 6px; margin: 6px 0; }
+.stat-line b { width: 18px; }
+.stat-line small { width: 48px; text-align: right; font-size: 10px; }
+.bar { height: 13px; flex: 1; overflow: hidden; background: #080d16; border: 1px solid #778197; border-radius: 8px; }
+.bar i { display: block; height: 100%; transition: width .2s; }
+.health-fill { background: linear-gradient(#ff7777, #b51d2a); }
+.mana-fill { background: linear-gradient(#6dd2ff, #175db8); }
+.xp-line { color: #f1d28b; font-size: 12px; margin-top: 6px; }
+
+.quest-card {
+  position: absolute;
+  top: 175px;
+  left: 16px;
+  z-index: 2;
+  width: 300px;
+  padding: 14px;
+  border-radius: 10px;
+}
+.quest-card h3 { color: #f2c96d; font-size: 16px; margin: 0 0 12px; }
+.quest-card p { margin: 0 0 7px; font-weight: bold; }
+.quest-card small { color: #d0d6df; line-height: 1.4; }
+
+.mini-map {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 190px;
+  height: 170px;
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 55%, #b48a55 0 2px, transparent 3px),
+    repeating-linear-gradient(45deg, #3b683d 0 10px, #527e43 10px 20px);
+}
+.map-title { position: absolute; top: 7px; left: 0; right: 0; text-align: center; font-size: 10px; font-weight: bold; color: #f4d38a; }
+.map-river { position: absolute; top: -15px; right: 25px; width: 35px; height: 210px; background: #277a9a; transform: rotate(12deg); }
+.map-dot { position: absolute; top: 77px; left: 68px; width: 45px; height: 35px; background: #ad8050; border-radius: 50%; }
+.map-player { position: absolute; top: 89px; left: 89px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid #47c2ff; box-shadow: 0 0 8px #fff; }
+
+.side-menu {
+  position: absolute;
+  right: 16px;
+  top: 210px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 170px;
+}
+.side-menu button {
+  color: white;
+  padding: 13px 12px;
+  text-align: left;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: .15s;
+}
+.side-menu button:hover, .hotbar button:hover { border-color: #f1c66d; background: #34445b; }
+
+.chat-panel {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  width: 340px;
+  min-height: 112px;
+  padding: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.chat-panel p { margin: 0 0 6px; font-size: 12px; color: #f4d47e; }
+
+.hotbar {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  gap: 7px;
+  transform: translateX(-50%);
+}
+.hotbar button {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  border-radius: 10px;
+  color: white;
+  font-size: 29px;
+  cursor: pointer;
+}
+.hotbar small { position: absolute; top: 4px; left: 7px; font-size: 11px; }
+.hotbar em { position: absolute; right: 6px; bottom: 4px; font-size: 11px; font-style: normal; color: #ffdf80; }
+
+.controls-hint {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 10px;
+  text-shadow: 1px 2px 4px #000;
+  white-space: nowrap;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  background: #0009;
+  backdrop-filter: blur(3px);
+}
+.modal {
+  position: relative;
+  width: min(420px, 90vw);
+  padding: 28px;
+  border: 2px solid #78859a;
+  border-radius: 14px;
+  background: #172233;
+  box-shadow: 0 12px 40px #000b;
+}
+.modal h2 { color: #f2cc7c; margin: 0 0 20px; }
+.modal p { margin: 12px 0; color: #e0e5ed; }
+.modal-close { position: absolute; right: 13px; top: 8px; border: 0; background: none; color: white; font-size: 28px; cursor: pointer; }
+.modal-avatar { display: block; width: 90px; height: 100px; object-fit: contain; image-rendering: pixelated; margin: 0 auto 15px; }
+
+@media (max-width: 700px) {
+  .hero-hud { top: 8px; left: 8px; width: 290px; padding: 7px; }
+  .hero-avatar { width: 65px; height: 76px; }
+  .quest-card { top: 125px; left: 8px; width: 235px; padding: 10px; }
+  .quest-card h3 { font-size: 13px; }
+  .mini-map { top: 8px; right: 8px; width: 130px; height: 120px; }
+  .side-menu { top: 145px; right: 8px; width: 125px; }
+  .side-menu button { padding: 9px 7px; font-size: 11px; }
+  .chat-panel { left: 8px; bottom: 8px; width: 220px; min-height: 90px; }
+  .chat-panel p { font-size: 10px; }
+  .hotbar { left: auto; right: 8px; bottom: 8px; transform: none; }
+  .hotbar button { width: 43px; height: 45px; font-size: 20px; }
+  .controls-hint { display: none; }
+}
